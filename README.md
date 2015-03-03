@@ -73,7 +73,7 @@ sh <(curl -s http://install.opensource.sh/sappio/dot) -a mynodejs
 
 #### 6.Промени `server.js` файла
 
-Както вече видя, след като старитра, `server.js` той тръгва на `localhost` и на порт `3000`. Понеже на сървърите на StartApp порт `3000` на `localhost` най-вероятно е зает от друго приложение, затова StartApp се грижи да осигурява служебно уникално `IP` и `PORT` за всяко едно приложение. Информацията за `IP` и `PORT` се записват в  Environment променливи на сървъра със следните имена: 
+Както вече видя, след като старитра, `server.js` той тръгва на `localhost` и на порт `3000`. Понеже на сървърите на StartApp порт `3000` на `localhost` най-вероятно е зает от друго приложение, затова StartApp се грижи да осигурява служебно уникално `IP` и `PORT` за всяко едно приложение. Информацията за `IP` и `PORT` се записват в  Environment променливи на сървъра със следните имена:
 
 - `OPENSHIFT_NODEJS_IP`
 - `OPENSHIFT_NODEJS_PORT`
@@ -107,9 +107,9 @@ var server = app.listen(3000, function () {
 var express = require('express')
 var app = express()
 
-# Така дефинирани, означава, че
-# на локалния компютър ще работи на localhost:3000
-# а на сървъра, ще работи служебно_ip:служебжен_port
+// Така дефинирани, означава, че
+// на локалния компютър ще работи на localhost:3000
+// а на сървъра, ще работи служебно_ip:служебжен_port
 var server_ip    = process.env.OPENSHIFT_NODEJS_IP || 'localhost',
     server_port  = parseInt(process.env.OPENSHIFT_NODEJS_PORT) || 3000;
 
