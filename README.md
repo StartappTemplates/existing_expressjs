@@ -1,36 +1,36 @@
 
 # Миграция на съществуващ NodeJS проект към StartApp.bg
 
-#### 1. Клонираме проект на лоаклния си компютър
+#### 1. Клонирай проекта си на лоаклния компютър
 
-Това, може да е всеки един ваш проект. В нашия случай това е много простичък проект, който
+Това, може да е всеки един товй проект. В нашия случай това е много простичък проект, който
 изписва `Hello World`, когато заредите `/` пътя.
 
 ```bash
 git clone https://github.com/StartappTemplates/existing_expressjs.git
 ```
 
-#### 2. Инсталираме си пакетите дефинирани в `package.json`
+#### 2. Инсталирай си пакетите дефинирани в `package.json`
 
 ```bash
 npm install
 ```
 
-#### 3. Стартираме приложението за да се уверим, че работи коректно.
+#### 3. Стартирай приложението за да се увериш, че работи коректно.
 
 ```bash
 node server.js
 ```
 
-Този ред стартира сървър, който ще работи на `localhost` и ще слуша на порт `3000`. За да видите дали работи коректно, отворете
-`http://localhost:3000/` във браузъра си и ако видиш `Hello World`, значи всичко е нормално.
+Горния ред стартира сървър, който ще работи на `localhost` и ще слуша на порт `3000`. За да видиш дали работи коректно, отвори
+`http://localhost:3000/` в браузъра си и ако видиш `Hello World`, значи всичко е нормално :).
 
-#### 4.  Създаване на NodeJS приложение в StartApp.bg
+#### 4. Създай NodeJS приложение в StartApp.bg
 
-Преди малко подкарахме `NodeJS` сървъра на локалната си машина. Сега е на ред да го накараме да заработи на StartApp.bg
-За целта създаваме едно обикновенно `NodeJS` приложение, което в нашия случай е версия `0.10` и се казва `mynodejs`
+Преди малко подакара `NodeJS` сървъра на локалната си машина. Сега е на ред да го накарш да заработи на StartApp.bg
+За целта създай едно обикновенно `NodeJS` приложение, което в този случай е версия `0.10` и се казва `mynodejs`
 
-Подробни инструкции можете да намерите в: [NodeJS документацията на StartApp](http://docs.startapp.bg/getting-started/startapp-with-nodejs.html#env-vars)
+Подробни инструкции можеш да намериш в: [NodeJS документацията на StartApp](http://docs.startapp.bg/getting-started/startapp-with-nodejs.html#env-vars)
 
 ```bash
 app create mynodejs nodejs-0.10 --no-git
@@ -45,19 +45,20 @@ app create mynodejs nodejs-0.10 --no-git
 sh <(curl -s http://install.opensource.sh/sappio/dot) -a mynodejs
 ```
 
-На кратко този скрипт създава една скрита директория `.openshift`, която се изпозлва служебно от StartApp, а също така и за различни автоматизации, които можете да си правите посредством [Action Hooks](http://docs.startapp.bg/getting-started/startapp-with-nodejs.html#action-hooks). Ако сте запознати с Git и `.openshift` директорията за StartApp е като `.git` директорията за Git.
+На кратко този скрипт създава една скрита директория `.openshift`, която се изпозлва служебно от StartApp. Директорията `.openshift` също така се използва и за различни автоматизации, които можеш да си направиш благодарение на [Action Hooks](http://docs.startapp.bg/getting-started/startapp-with-nodejs.html#action-hooks). Ако си запознат с Git тогава знай, че `.openshift` директорията за StartApp е като `.git` директорията за Git.
 
 
-#### 6.Промени на `server.js`
+#### 6.Промени `server.js` файла
 
-Както вече видяхме, след като стартираме, `server.js` той тръгва на `localhost` и на порт `3000`. Понеже на сървърите на StartApp порт `3000` на `localhost` най-вероятно е зает от друго приложение, затова StartApp се грижи да осигурява оникално `IP` и `PORT` за всяко едно приложениет. Информацията за `IP` и `PORT` се записват в  Environment променливи на сървъра със следните имена: 
+Както вече видя, след като старитра, `server.js` той тръгва на `localhost` и на порт `3000`. Понеже на сървърите на StartApp порт `3000` на `localhost` най-вероятно е зает от друго приложение, затова StartApp се грижи да осигурява служебно уникално `IP` и `PORT` за всяко едно приложение. Информацията за `IP` и `PORT` се записват в  Environment променливи на сървъра със следните имена: 
 
 - `OPENSHIFT_NODEJS_IP`
 - `OPENSHIFT_NODEJS_PORT`
 
-Повече информация за Environment променливите за NodeJS можете да намерите тук: [Environemnt променливи в StartApp](http://docs.startapp.bg/getting-started/startapp-with-nodejs.html#env-vars)
+Повече информация за Environment променливите на NodeJS приложения в StartApp, орвори тук: [NodeJS Environemnt променливи в StartApp](http://docs.startapp.bg/getting-started/startapp-with-nodejs.html#env-vars)
 
-###### Редактиране на файла `server.js` от:
+
+###### Редактирай файла `server.js` от:
 
 ```js
 var express = require('express')
@@ -77,7 +78,7 @@ var server = app.listen(3000, function () {
 })
 ```
 
-###### Става по следния начин:
+###### Да стане така:
 
 ```js
 var express = require('express')
@@ -103,3 +104,12 @@ var server = app.listen(server_port, server_ip, function () {
 })
 ```
 
+#### 7. Качи на сървъра
+
+```bash
+git add .
+git commit -m "Chnages for StartApp"
+git push startapp master -f
+```
+
+Това е :) Честито.
