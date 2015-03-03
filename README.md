@@ -38,6 +38,29 @@ app create mynodejs nodejs-0.10 --no-git
 
 Аргументът `--no-git` казва на StartApp да не клонира новосъздаденото приложение на компютъра след като го създаде.
 
+Като резултат, трябва да видиш, нещо подобно:
+
+```bash
+Application Options
+-------------------
+Domain:     demos
+Cartridges: nodejs-0.10
+Gear Size:  default
+Scaling:    no
+
+Creating application 'mynodejs' ... done
+
+
+Waiting for your DNS name to be available ... done
+
+Your application 'mynodejs' is now available.
+
+  URL:        http://mynodejs-demos.sapp.io/
+  SSH to:     54f160d13bba31e20ed000103@mynodejs-demos.sapp.io
+  Git remote: ssh://54f160d13bba31e20ed000103@mynodejs-demos.sapp.io/~/git/mynodejs.git/
+
+Run 'app show-app mynodejs' for more details about your app.
+```
 
 #### 5. Добавяне на задължителни директории и файлове за да работи на сървърите на StartApp.bg
 
