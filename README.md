@@ -1,6 +1,12 @@
 
 # Миграция на съществуващ NodeJS проект към StartApp.bg
 
+**Важно:** За да работят примерите по-долу:
+
+- Регистрирай се в [StartApp.bg](https://www.startapp.bg/#contacts)
+- Инсталирай [StartApp Client Tools (app)](http://docs.startapp.bg/getting-started/app-client-tools-install.html)
+
+
 #### 1. Клонирай проекта си на лоаклния компютър
 
 Това, може да е всеки един товй проект. В нашия случай това е много простичък проект, който
@@ -134,5 +140,49 @@ git add .
 git commit -m "Chnages for StartApp"
 git push startapp master -f
 ```
+
+#### 7. Свържи за база данни
+
+Както вече си се досетил, конфигурацията на база данни в StartApp става също с Environment променливи.
+
+###### Пример с MongoDB:
+
+- `OPENSHIFT_APP_NAME` - име на базата данни
+- `OPENSHIFT_MONGODB_DB_USERNAME` - потребителско име
+- `OPENSHIFT_MONGODB_DB_PASSWORD` - парола
+- `OPENSHIFT_MONGODB_DB_HOST`- hostname
+- `OPENSHIFT_MONGODB_DB_PORT`- порт
+
+Съветваме те да използваш тези Environment променливи, вместо да hardcode-ваш `hostname`, `username`, `password` и тнт, защото за всяко едно приложение те са различни и така, ще си спестиш много главоболия!
+
+Ето как изглеждат в кода тези Environment променливи:
+
+```js
+var MongoClient = require('mongodb').MongoClient,
+
+    host     = process.env.OPENSHIFT_MONGODB_DB_HOST,
+    username = process.env.OPENSHIFT_MONGODB_DB_USERNAME,
+    password = process.env.OPENSHIFT_MONGODB_DB_PASSWORD,
+    port     = process.env.OPENSHIFT_MONGODB_DB_PORT,
+    db_name  = process.env.OPENSHIFT_APP_NAME,
+    mongodb_uri = "mongodb://" + username + ":" + password + "@" + host + ":" + port + "/" + db_name;
+
+// Свързване с базата данни
+MongoClient.connect(mongodb_uri, function(err, db) {
+  if(err) {
+    return console.dir(err);
+  }
+
+  db.collection('test', function(err, collection) {});
+  db.collection('test', { w:1 }, function(err, collection) {});
+  db.createCollection('test', function(err, collection) {});
+  db.createCollection('test', { w:1 }, function(err, collection) {});
+});
+```
+
+Виж още:
+- [MongoDB](http://docs.startapp.bg/getting-started/startapp-with-nodejs.html#add-mongo-to-app)
+- [MySQL](http://docs.startapp.bg/getting-started/startapp-with-nodejs.html#add-mysql-to-app)
+- [PostgreSQL](http://docs.startapp.bg/getting-started/startapp-with-nodejs.html#add-postgresql-to-app)
 
 Това е :) Честито.
